@@ -14,9 +14,11 @@ import { useState } from 'react';
 
 const Footer = (props) => {
     const [isModelOpen, setIsModelOpen] = useState(false);
-    const showModel = () =>{
+    
+    const showModal = () => {
         setIsModelOpen(true);
     }
+    
     const handleOk = () => {
         setIsModelOpen(false);
     }
@@ -57,13 +59,14 @@ const Footer = (props) => {
                 </Avatar> :
                 null}
                 
-                <Button type='primary' onClick={showModel}>Add a new student +</Button>
+                <Button type='primary' onClick={showModal}>Add a new student +</Button>
                 <Modal
                     title="Add a new student"
                     closable={{ 'aria-label': 'Custom Close Button' }}
                     open={isModelOpen}
                     onOk={handleOk}
                     onCancel={onCancel}
+                    // width={500}
                 >
                 <Form
                     {...layout}
@@ -86,13 +89,13 @@ const Footer = (props) => {
 
                       <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
                         <Select
-                        allowClear
-                        placeholder="Select a option and change input text above"
-                        onChange={onGenderChange}
-                        options={[
-                            { label: 'Male', value: 'Male' },
-                            { label: 'Female', value: 'Female' },
-                        ]}
+                            allowClear
+                            placeholder="Select a option and change input text above"
+                            onChange={onGenderChange}
+                            options={[
+                                { label: 'Male', value: 'Male' },
+                                { label: 'Female', value: 'Female' },
+                            ]}
                         />
                     </Form.Item>
 

@@ -43,12 +43,21 @@ class App extends Component {
         setTimeout(() => {
           this.setState({students: data,
              isFetching: false}); // Update state with fetched student data
-        }, 3000);
+        }, 1000);
       })
       .catch(err => {
         console.error('Error:', err);
         this.setState({isFetching: false});
       }); // Log any errors that occur
+  }
+
+  /**
+   * Opens the add student modal
+   * This function is passed to Footer component as a prop
+   */
+  openAddStudentModal = () => {
+    console.log('Open add student modal');
+    // Modal logic is handled in Footer component
   }
 
 
@@ -119,7 +128,8 @@ class App extends Component {
             columns={columns}         // Define which columns to display
             pagination={false}        // Disable pagination
             rowKey="id" />           {/* Use 'id' field as unique key for each row */}
-            <Footer numberOfStudents={students.length}></Footer>
+            <Footer numberOfStudents={students.length}
+             handleAddStudentClickEvent={this.openAddStudentModal}/>
         </Container>
       );
   }
