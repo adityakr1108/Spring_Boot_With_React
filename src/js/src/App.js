@@ -1,8 +1,9 @@
 import './App.css';
 import {getAllStudents} from './client';
 import {Component} from 'react';
+import Footer from './footer';
 import Container from './container';
-import { Avatar, DatePicker } from 'antd';
+import { Avatar} from 'antd';
 import {
   Table,Spin
 } from 'antd';
@@ -118,6 +119,7 @@ class App extends Component {
             columns={columns}         // Define which columns to display
             pagination={false}        // Disable pagination
             rowKey="id" />           {/* Use 'id' field as unique key for each row */}
+            <Footer numberOfStudents={students.length}></Footer>
         </Container>
       );
   }
