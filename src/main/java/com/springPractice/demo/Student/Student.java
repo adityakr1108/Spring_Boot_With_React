@@ -2,13 +2,13 @@ package com.springPractice.demo.Student;
 
 import java.util.UUID;
 
-public class StudentRecord {
+public class Student {
     private final UUID id;
     private final String firstName;
     private final String lastname;
     private final String  email;
     private final Gender gender;
-    public StudentRecord(UUID id, String firstName, String lastname, String email, Gender gender) {
+    public Student(UUID id, String firstName, String lastname, String email, Gender gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastname = lastname;

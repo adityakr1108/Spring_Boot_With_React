@@ -1,3 +1,11 @@
 server:
   servlet:
     context-path: /api
+
+# Postgres Database Connection Configuration 
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/demoapplication
+    username: postgres
+    password: password
+    pool-size: 30

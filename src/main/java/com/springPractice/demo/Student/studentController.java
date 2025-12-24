@@ -1,6 +1,7 @@
 package com.springPractice.demo.Student;
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("students")
 @CrossOrigin
 public class studentController {
+    private final StudentService studentService;
+
+    @Autowired 
+    public studentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @GetMapping
-   List<StudentRecord> getAllStudents (){
-    return List.of(
-        new StudentRecord(UUID .randomUUID(), "Aditya", "Kumar", "aditya.kumar@example.com", StudentRecord.Gender.MALE),
-        new StudentRecord(UUID .randomUUID(), "Priya", "Sharma", "priya.123@gmail.com", StudentRecord.Gender.FEMALE),
-        new StudentRecord(UUID .randomUUID(), "Alex", "Johnson", "alex.1234@gmail.com", StudentRecord.Gender.OTHER)
-    );
+   List<Student> getAllStudents (){
+    return studentService.getAllStudents();
    }
 
 
