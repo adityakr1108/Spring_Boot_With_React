@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { Input, Button } from 'antd';
+import { Input, Button, Tag } from 'antd';
 
-const { Password } = Input;
+const tagStyle = {backgroundColor: '#f50',color: 'white',marginTop:'2px', marginBottom: '2px', display:
+  'block', width:'fit-content' };
+const h4Style = { marginBottom: '6px', marginTop:'5px',display:'inline' };
 
 class AddStudentForm extends Component {
   render() {
@@ -13,8 +15,6 @@ class AddStudentForm extends Component {
           lastName: '',
           gender: '',
           email: '',
-          password: '',
-          confirmPassword: ''
         }}
         validate={values => {
           const errors = {};
@@ -36,8 +36,8 @@ class AddStudentForm extends Component {
           // Gender
           if (!values.gender) {
             errors.gender = 'Gender Required';
-          } else if (values.gender !== 'MALE' && values.gender !== 'FEMALE') {
-            errors.gender = 'Invalid Gender';
+          } else if (!['female','male','FEMALE','MALE','Male','Female'].includes(values.gender)) {
+            errors.gender = "Gender must be 'Ma le' or 'Female'";
           }
 
           // Email
@@ -48,28 +48,13 @@ class AddStudentForm extends Component {
           ) {
             errors.email = 'Invalid email address';
           }
-
-          // Password
-          if (!values.password) {
-            errors.password = 'Required';
-          } else if (
-            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/.test(values.password)
-          ) {
-            errors.password =
-              '8–15 chars, uppercase, lowercase, number & special char required';
-          }
-            // Confirm Password
-            if (!values.confirmPassword) {
-                errors.confirmPassword = 'Required';
-            } else if (values.confirmPassword !== values.password) {
-                errors.confirmPassword = 'Passwords doesr not match';
-            }
-
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          setSubmitting(false);
+          setTimeout(()=>{
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          },400)
         }}
       >
         {({
@@ -79,10 +64,12 @@ class AddStudentForm extends Component {
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting
+          isSubmitting,
+          submitForm,
+          isValid
         }) => (
           <form onSubmit={handleSubmit}>
-
+            <h4 style={{ marginBottom: '8px' }}>Enter the first name</h4>
             <Input
               name="firstName"
               placeholder="First Name"
@@ -90,8 +77,8 @@ class AddStudentForm extends Component {
               onBlur={handleBlur}
               value={values.firstName}
             />
-            {touched.firstName && errors.firstName && <div>{errors.firstName}</div>}
-
+            {errors.firstName && touched.firstName && <Tag style = {tagStyle}>{errors.firstName}</Tag>}
+            <h4 style={h4Style}>Enter the last name</h4>
             <Input
               name="lastName"
               placeholder="Last Name"
@@ -99,22 +86,22 @@ class AddStudentForm extends Component {
               onBlur={handleBlur}
               value={values.lastName}
             />
-            {touched.lastName && errors.lastName && <div>{errors.lastName}</div>}
-            
-                        <select
-                            id="gender"
-                            name="gender"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.gender}
-                        >
-                            <option value="">Select a gender</option>
-                            <option value="MALE">Male</option>
-                            <option value="FEMALE">Female</option>
-                        </select>
-                        {touched.gender && errors.gender ? (
-                            <div>{errors.gender}</div>
-                        ) : null}
+            {errors.lastName && touched.lastName && <Tag style = {tagStyle}>{errors.lastName}</Tag>}
+            <h4 style={h4Style}>Select the gender from the options below: </h4>
+            <select
+                id="gender"
+                name="gender"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.gender}
+            >
+                <option value="">Select a gender</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+            </select>
+            {touched.gender && errors.gender && 
+                <Tag style = {tagStyle}>{errors.gender}</Tag>
+            }
             <Input
               name="email"
               placeholder="Email"
@@ -122,33 +109,14 @@ class AddStudentForm extends Component {
               onBlur={handleBlur}
               value={values.email}
             />
-            {touched.email && errors.email && <div>{errors.email}</div>}
-
-            <Password
-              name="password"
-              placeholder="Password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-            />
-            {touched.password && errors.password && <div>{errors.password}</div>}
-            <Password
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={values.confirmPassword}
-              />
-                {touched.confirmPassword && errors.confirmPassword && <div>{errors.confirmPassword}</div>}
+            {errors.email && touched.email && <Tag style = {tagStyle}>{errors.email}</Tag>}
             <Button
+              onClick = {() => submitForm()}
               type="primary"
-              htmlType="submit"
-              disabled={isSubmitting}
-              style={{ marginTop: 16 }}
+              disabled={isSubmitting | (touched && !isValid)}
             >
               Submit
             </Button>
-
           </form>
         )}
       </Formik>
