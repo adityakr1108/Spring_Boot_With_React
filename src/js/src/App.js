@@ -47,11 +47,6 @@ class App extends Component {
         this.setState({isFetching: false});
       }); // Log any errors that occur
   }
-
-
-
-  
-
   /**
    * Renders the component UI
    * Shows loading message if no data, otherwise displays student table
