@@ -27,14 +27,17 @@ public class studentController {
     @GetMapping
     // @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
     List<Student> getAllStudents() {
-        // return new ArrayList<>(studentService.getAllStudents());
-        throw new ApiRequestException("Api not implemneted yet");
+        return new ArrayList<>(studentService.getAllStudents());
+        // throw new ApiRequestException("Api not implemented yet");
     }
     @PostMapping
     public void addNewStudent(@RequestBody  Student student) {
         if (student.getFirstName() == null || student.getLastName() == null || 
             student.getEmail() == null || student.getGender() == null) {
             throw new ApiRequestException("Enter Valid Arguments");
+        }
+        else if(studentService.isEmailTaken(student.getEmail())) {
+            throw new ApiRequestException("Email " + student.getEmail() + " is already taken");
         }
         studentService.addNewStudent(null, student);
     }

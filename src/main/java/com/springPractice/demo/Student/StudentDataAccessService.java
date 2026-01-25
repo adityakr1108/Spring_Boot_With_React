@@ -29,6 +29,16 @@ public class StudentDataAccessService {
                     "FROM student";
         return jdbcTemplate.query(sql, mapStudentFromDb());
     }
+
+    int checkEmailExists(String email){
+        String sql = "" +
+                    "SELECT COUNT(*) " +
+                    "FROM student " +
+                    "WHERE email = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+        return count != null ? count : 0;
+    }
+
     int insertStudent(UUID id, Student student){
         String sql = "" +
                     "INSERT INTO student ( " +

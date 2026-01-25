@@ -18,6 +18,11 @@ public class StudentService {
     public List<Student> getAllStudents() {
         return studentDataAccessService.selectAllStudents();
     }
+
+    public boolean isEmailTaken(String email){
+        return studentDataAccessService.checkEmailExists(email) > 0;
+    }
+    
     public void addNewStudent(UUID id,Student student){
         UUID newId = Optional.ofNullable(id).orElse(UUID.randomUUID());
         if(studentDataAccessService.insertStudent(newId, student) > 0){
