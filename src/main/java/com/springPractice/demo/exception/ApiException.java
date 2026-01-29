@@ -7,23 +7,24 @@ import org.springframework.http.HttpStatus;
 
 public class ApiException {
     private final String message;
-     private final Throwable throwable; // this one send much of data which one be not needed for now
+     // private final Throwable throwable; // this one send much of data which one be not needed for now
     private final HttpStatus httpStatus;
     private final ZonedDateTime timestamp;
 
-    public ApiException(String message, Throwable throwable, 
+    public ApiException(String message, 
+        // Throwable throwable,  
          HttpStatus httpStatus, ZonedDateTime timestamp) {
         this.message = message;
-        this.throwable = throwable;
+        // this.throwable = throwable;
         this.httpStatus = httpStatus;
         this.timestamp = timestamp;
     }
     public String getMessage() {
         return message;
     }
-    public Throwable getThrowable() {
-        return throwable;
-    }
+    // public Throwable getThrowable() {
+    //     return throwable;
+    // }
     public HttpStatus getHttpStatus() {
         return httpStatus;
     }
