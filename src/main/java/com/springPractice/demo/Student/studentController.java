@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springPractice.demo.exception.ApiRequestException;
 import org.springframework.http.ResponseEntity;
 
+
+
 @RestController
 @RequestMapping("students")
 @CrossOrigin
@@ -37,9 +39,9 @@ public class studentController {
     public void addNewStudent(@RequestBody Student student) {
         if (student.getFirstName() == null || student.getFirstName().trim().isEmpty() ||
             student.getLastName() == null || student.getLastName().trim().isEmpty() ||
-            student.getEmail() == null || student.getEmail().trim().isEmpty() ||
+            student.getEmail() == null || student.getEmail().trim().isEmpty() || 
             student.getGender() == null) {
-            throw new ApiRequestException("All fields (firstName, lastName, email, gender) must be provided and non-empty");
+            throw new ApiRequestException("All fields (firstName, lastName, email, gender) must be provided and non-empty and email must be valid");
         }
 
         if (studentService.isEmailTaken(student.getEmail())) {
