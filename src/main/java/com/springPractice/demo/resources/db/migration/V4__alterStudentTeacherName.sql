@@ -1,1 +1,0 @@
-alter table student alter column teacher_name modify varchar(50) null;
